@@ -1,0 +1,35 @@
+Attribute VB_Name = "GoogleMaps"
+Function TRAVELDISTANCE(origin, destination, apikey)
+ 
+    Dim strUrl As String
+    strUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" & origin & "&destination=" & destination & "&key=" & apikey
+     
+    Set httpReq = CreateObject("MSXML2.XMLHTTP")
+    With httpReq
+         .Open "GET", strUrl, False
+         .Send
+    End With
+     
+    Dim response As String
+    response = httpReq.ResponseText
+     
+    Dim parsed As Dictionary
+    Set parsed = JsonConverter.ParseJson(response)
+    Dim meters As Long
+     
+    Dim leg As Dictionary
+     
+    If parsed.Exists("routes") And parsed("routes").Count > 0 Then
+        If parsed("routes")(1).Exists("legs") And parsed("routes")(1)("legs").Count > 0 Then
+            For Each leg In parsed("routes")(1)("legs")
+                If leg.Exists("distance") Then
+                    meters = meters + leg("distance")("value")
+                End If
+            Next leg
+        End If
+    End If
+
+    TRAVELDISTANCE = meters / 1000 ' Convert meters to kilometers
+
+End Function
+

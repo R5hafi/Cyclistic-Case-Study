@@ -1,0 +1,9 @@
+Cleaning Documentation:
+
+- Latitude and longitude data were converted to the double data type with 4 decimal places to avoid errors in type conversions during exporting for each spreadsheet.
+- Ride_id was converted to text data types, so that there isn't any automatic interpretation of other data types.
+- Certain calculated ride times were negative because listed start and end times had errors, for example 5:34:21 pm as the start and 5:34:09 as the end. Assumed this was a data entry error thus times were swapped in the spreadsheets using IF Statement functions in Excel.
+- Ride_length was converted to text because MS Access was misinterpreting time formats in HH:MM:SS as dates.
+- start/end_station_id was removed for redundancy because the longitude and latitude columns were the only ones needed to find distance.
+- Rows, where member status (member_casual) was blank, were not included in the analysis due to no relevancy.
+- Many rows had bike rides which had the same start and end location, or blank lat and lng values, these cells were not included in the study.

@@ -1,0 +1,8 @@
+Attribute VB_Name = "SplitConcat"
+Public Function SplitAndConcat(str As String, index1 As Integer, index2 As Integer) As String
+    Dim parts() As String
+    parts = Split(str, ",")
+    SplitAndConcat = parts(index1) & "," & parts(index2)
+End Function
+
+

@@ -1,0 +1,27 @@
+Attribute VB_Name = "GeodesicDistance"
+Function Haversine(lat1 As Double, lon1 As Double, lat2 As Double, lon2 As Double) As Double
+    Const pi As Double = 3.14159265358979
+    Const EarthRadius As Double = 6371 ' Earth's radius in kilometers
+    Dim deltaLat As Double
+    Dim deltaLon As Double
+    Dim a As Double
+    Dim c As Double
+
+    ' Convert degrees to radians
+    lat1 = lat1 * pi / 180
+    lon1 = lon1 * pi / 180
+    lat2 = lat2 * pi / 180
+    lon2 = lon2 * pi / 180
+
+    ' Calculate differences
+    deltaLat = lat2 - lat1
+    deltaLon = lon2 - lon1
+
+    ' Haversine formula
+    a = Sin(deltaLat / 2) ^ 2 + Cos(lat1) * Cos(lat2) * Sin(deltaLon / 2) ^ 2
+    c = 2 * Atn(Sqr(a / (1 - a)))
+
+    ' Calculate and return the distance
+    Haversine = Round(EarthRadius * c, 3)
+End Function
+
